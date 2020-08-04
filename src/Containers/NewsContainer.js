@@ -5,9 +5,7 @@ class NewsConatainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        newsIds: [],
         news: [],
-        currentItem: [],
       };
   }
 
@@ -19,9 +17,11 @@ class NewsConatainer extends React.Component {
         fetch(`https://hacker-news.firebaseio.com/v0/item/${item}.json`)
           .then(res => res.json())
           .then(data => {
-            const allArticles = this.state.news.concat([data]);
-            this.setState({ news: allArticles });
-          });
+            if (this.state.news.length < 10) {
+              const allArticles = this.state.news.concat([data]);
+              this.setState({ news: allArticles });
+            }  });
+
       }
     });
 
